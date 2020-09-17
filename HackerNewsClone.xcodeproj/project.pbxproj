@@ -9,8 +9,6 @@
 /* Begin PBXBuildFile section */
 		63B0F1F72513CB78000AAD6F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63B0F1F62513CB78000AAD6F /* AppDelegate.swift */; };
 		63B0F1F92513CB78000AAD6F /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63B0F1F82513CB78000AAD6F /* SceneDelegate.swift */; };
-		63B0F1FB2513CB78000AAD6F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63B0F1FA2513CB78000AAD6F /* ViewController.swift */; };
-		63B0F1FE2513CB78000AAD6F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 63B0F1FC2513CB78000AAD6F /* Main.storyboard */; };
 		63B0F2002513CB79000AAD6F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 63B0F1FF2513CB79000AAD6F /* Assets.xcassets */; };
 		63B0F2032513CB79000AAD6F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 63B0F2012513CB79000AAD6F /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
@@ -19,8 +17,6 @@
 		63B0F1F32513CB78000AAD6F /* HackerNewsClone.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HackerNewsClone.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		63B0F1F62513CB78000AAD6F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		63B0F1F82513CB78000AAD6F /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		63B0F1FA2513CB78000AAD6F /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		63B0F1FD2513CB78000AAD6F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		63B0F1FF2513CB79000AAD6F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		63B0F2022513CB79000AAD6F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		63B0F2042513CB79000AAD6F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -56,15 +52,61 @@
 		63B0F1F52513CB78000AAD6F /* HackerNewsClone */ = {
 			isa = PBXGroup;
 			children = (
-				63B0F1F62513CB78000AAD6F /* AppDelegate.swift */,
-				63B0F1F82513CB78000AAD6F /* SceneDelegate.swift */,
-				63B0F1FA2513CB78000AAD6F /* ViewController.swift */,
-				63B0F1FC2513CB78000AAD6F /* Main.storyboard */,
-				63B0F1FF2513CB79000AAD6F /* Assets.xcassets */,
-				63B0F2012513CB79000AAD6F /* LaunchScreen.storyboard */,
-				63B0F2042513CB79000AAD6F /* Info.plist */,
+				63B0F2102513CED9000AAD6F /* Model */,
+				63B0F2112513CEDF000AAD6F /* View */,
+				63B0F2122513CEE4000AAD6F /* Controller */,
+				63B0F20C2513CEAE000AAD6F /* Support */,
 			);
 			path = HackerNewsClone;
+			sourceTree = "<group>";
+		};
+		63B0F20C2513CEAE000AAD6F /* Support */ = {
+			isa = PBXGroup;
+			children = (
+				63B0F20D2513CEC2000AAD6F /* App Lifecycle */,
+				63B0F1FF2513CB79000AAD6F /* Assets.xcassets */,
+				63B0F2042513CB79000AAD6F /* Info.plist */,
+			);
+			path = Support;
+			sourceTree = "<group>";
+		};
+		63B0F20D2513CEC2000AAD6F /* App Lifecycle */ = {
+			isa = PBXGroup;
+			children = (
+				63B0F1F62513CB78000AAD6F /* AppDelegate.swift */,
+				63B0F1F82513CB78000AAD6F /* SceneDelegate.swift */,
+			);
+			path = "App Lifecycle";
+			sourceTree = "<group>";
+		};
+		63B0F2102513CED9000AAD6F /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		63B0F2112513CEDF000AAD6F /* View */ = {
+			isa = PBXGroup;
+			children = (
+				63B0F2132513CEF1000AAD6F /* Storyboards */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		63B0F2122513CEE4000AAD6F /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		63B0F2132513CEF1000AAD6F /* Storyboards */ = {
+			isa = PBXGroup;
+			children = (
+				63B0F2012513CB79000AAD6F /* LaunchScreen.storyboard */,
+			);
+			path = Storyboards;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -126,7 +168,6 @@
 			files = (
 				63B0F2032513CB79000AAD6F /* LaunchScreen.storyboard in Resources */,
 				63B0F2002513CB79000AAD6F /* Assets.xcassets in Resources */,
-				63B0F1FE2513CB78000AAD6F /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -137,7 +178,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				63B0F1FB2513CB78000AAD6F /* ViewController.swift in Sources */,
 				63B0F1F72513CB78000AAD6F /* AppDelegate.swift in Sources */,
 				63B0F1F92513CB78000AAD6F /* SceneDelegate.swift in Sources */,
 			);
@@ -146,14 +186,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		63B0F1FC2513CB78000AAD6F /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				63B0F1FD2513CB78000AAD6F /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		63B0F2012513CB79000AAD6F /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -288,7 +320,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = P7DFWNNEL3;
-				INFOPLIST_FILE = HackerNewsClone/Info.plist;
+				INFOPLIST_FILE = HackerNewsClone/Support/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -307,7 +339,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = P7DFWNNEL3;
-				INFOPLIST_FILE = HackerNewsClone/Info.plist;
+				INFOPLIST_FILE = HackerNewsClone/Support/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
