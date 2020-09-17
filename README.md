@@ -2,7 +2,7 @@
 
 ---
 
-[![Swift Version][swift-image]][swift-url] [![ios-badge]] [![License][license-image]][license-url]
+[![Swift Version][swift-image]][swift-url] ![ios-badge] [![License][license-image]][license-url]
 
 
 
