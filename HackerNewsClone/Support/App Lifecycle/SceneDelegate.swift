@@ -16,7 +16,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 		// Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
 		// If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
 		// This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
-		guard let _ = (scene as? UIWindowScene) else { return }
+		guard let windowScene = scene as? UIWindowScene else { return }
+		window = UIWindow(windowScene: windowScene)
+		window?.windowScene = windowScene
+		let newsFeedTableVC = NewsFeedTableViewController.new(delegate: self)
+		window?.rootViewController = UINavigationController(rootViewController: newsFeedTableVC)
+		window?.makeKeyAndVisible()
 	}
 
 	func sceneDidDisconnect(_ scene: UIScene) {
@@ -50,3 +55,21 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
 }
 
+extension SceneDelegate: NewsFeedActions {
+	func fetchPosts(completion: @escaping (Result<Posts, NetworkError>) -> Void){
+		let networkManager = NetworkManager()
+		guard let url = URL(string: API.baseURL)?
+				.appendingPathComponent(API.new)
+				.appendingPathExtension(API.json) else { return }
+		var request = URLRequest(url: url)
+		request.httpMethod = HTTPMethod.get.rawValue
+		networkManager.decodeObjects(using: request) { (result: Result<Posts, NetworkError>) in
+			switch result {
+			case .success(let posts):
+				completion(.success(posts))
+			case .failure(let error):
+				completion(.failure(error))
+			}
+		}
+	}
+}
