@@ -8,9 +8,6 @@
 import SafariServices
 import UIKit
 
-protocol NewsFeedActions {
-	func fetchPosts(completion: @escaping (Result<Posts, NetworkError>) -> Void)
-}
 
 class NewsFeedTableViewController: UITableViewController {
 	
@@ -19,14 +16,14 @@ class NewsFeedTableViewController: UITableViewController {
 	lazy var dataSource: NewsFeedDataSource = {
 		let dataSource = NewsFeedDataSource(tableView: tableView) { tableView, indexPath, post -> UITableViewCell? in
 			guard let cell = tableView.dequeueReusableCell(withIdentifier: NewsFeedCell.reuseIdentifier, for: indexPath) as? NewsFeedCell else { fatalError("Unable to dequeue a cell for identifier \(NewsFeedCell.reuseIdentifier)") }
-			cell.delegate = self
+			cell.delegate = self.viewModel
 			cell.post = post
 			return cell
 		}
 		return dataSource
 	}()
 	var delegate: NewsFeedActions!
-	var posts = Posts()
+	let viewModel = NewsFeedViewModel()
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
@@ -34,8 +31,8 @@ class NewsFeedTableViewController: UITableViewController {
 		delegate.fetchPosts { result in
 			switch result {
 			case .success(let posts):
-				self.posts = posts
 				DispatchQueue.main.async {
+					self.viewModel.posts = posts
 					self.applySnapshot()
 				}
 			case .failure(let error):
@@ -61,49 +58,20 @@ class NewsFeedTableViewController: UITableViewController {
 	private func applySnapshot() {
 		var snapshot = NewsFeedSnapshot()
 		snapshot.appendSections([0])
-		snapshot.appendItems(posts)
+		snapshot.appendItems(viewModel.posts)
 		dataSource.apply(snapshot, animatingDifferences: false)
 	}
 }
 
 extension NewsFeedTableViewController {
 	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-		guard let cell = tableView.cellForRow(at: indexPath) as? NewsFeedCell,
-			  let item = cell.item,
-			  let urlString = item.url,
-			  let url = URL(string: urlString) else { return }
-		showArticle(for: url)
+		let post = viewModel.posts[indexPath.row]
+		viewModel.showArticle(for: post, on: self)
 	}
 }
 
 extension NewsFeedTableViewController {
-	private func showArticle(for url: URL) {
-		let config = SFSafariViewController.Configuration()
-		config.entersReaderIfAvailable = true
-		let vc = SFSafariViewController(url: url, configuration: config)
-		present(vc, animated: true)
-	}
+	
 }
 
-extension NewsFeedTableViewController: NewsFeedCellActions {
-	func update(_ cell: NewsFeedCell) {
-		let networkManager = NetworkManager()
-		guard let post = cell.post, let url = URL(string: API.baseURL)?
-				.appendingPathComponent(API.item)
-				.appendingPathComponent("\(post)")
-				.appendingPathExtension(API.json) else { return }
-		var request = URLRequest(url: url)
-		request.httpMethod = HTTPMethod.get.rawValue
-		networkManager.decodeObjects(using: request) { (result: Result<Item, NetworkError>) in
-			switch result {
-			case .success(let post):
-				DispatchQueue.main.async {
-					cell.item = post
-					cell.titleLabel.text = post.title
-				}
-			case .failure(let error):
-				print(error)
-			}
-		}
-	}
-}
+

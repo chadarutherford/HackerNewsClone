@@ -7,15 +7,14 @@
 
 import UIKit
 
-protocol ReuseIdentifiable {
-	static var reuseIdentifier: String { get }
-}
-
-protocol NewsFeedCellActions {
-	func update(_ cell: NewsFeedCell)
-}
-
 class NewsFeedCell: UITableViewCell {
+	var delegate: NewsFeedCellActions!
+	var post: Post? {
+		didSet {
+			delegate.update(self)
+			
+		}
+	}
 	
 	lazy var titleLabel = configure(UILabel()) {
 		addSubview($0)
@@ -32,14 +31,6 @@ class NewsFeedCell: UITableViewCell {
 		$0.lineBreakMode = .byWordWrapping
 	}
 	
-	var delegate: NewsFeedCellActions!
-	var post: Post? {
-		didSet {
-			delegate.update(self)
-			
-		}
-	}
-	var item: Item?
 }
 
 extension NewsFeedCell: ReuseIdentifiable {
