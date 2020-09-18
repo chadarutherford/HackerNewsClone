@@ -5,6 +5,7 @@
 //  Created by Chad Rutherford on 9/17/20.
 //
 
+import SafariServices
 import UIKit
 
 protocol NewsFeedActions {
@@ -65,6 +66,25 @@ class NewsFeedTableViewController: UITableViewController {
 	}
 }
 
+extension NewsFeedTableViewController {
+	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+		guard let cell = tableView.cellForRow(at: indexPath) as? NewsFeedCell,
+			  let item = cell.item,
+			  let urlString = item.url,
+			  let url = URL(string: urlString) else { return }
+		showArticle(for: url)
+	}
+}
+
+extension NewsFeedTableViewController {
+	private func showArticle(for url: URL) {
+		let config = SFSafariViewController.Configuration()
+		config.entersReaderIfAvailable = true
+		let vc = SFSafariViewController(url: url, configuration: config)
+		present(vc, animated: true)
+	}
+}
+
 extension NewsFeedTableViewController: NewsFeedCellActions {
 	func update(_ cell: NewsFeedCell) {
 		let networkManager = NetworkManager()
@@ -78,6 +98,7 @@ extension NewsFeedTableViewController: NewsFeedCellActions {
 			switch result {
 			case .success(let post):
 				DispatchQueue.main.async {
+					cell.item = post
 					cell.titleLabel.text = post.title
 				}
 			case .failure(let error):

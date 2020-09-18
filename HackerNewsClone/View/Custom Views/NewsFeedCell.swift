@@ -39,6 +39,7 @@ class NewsFeedCell: UITableViewCell {
 			
 		}
 	}
+	var item: Item?
 }
 
 extension NewsFeedCell: ReuseIdentifiable {
